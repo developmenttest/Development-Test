@@ -22,6 +22,8 @@
 		183291BE1B13344000D89946 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183291BD1B13344000D89946 /* ForgotPasswordViewController.m */; };
 		183291CE1B13369F00D89946 /* ZWTTextboxToolbarHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 183291C61B13369F00D89946 /* ZWTTextboxToolbarHandler.m */; };
 		183291D61B1343A600D89946 /* DTUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 183291D41B1343A600D89946 /* DTUser.m */; };
+		183291D91B13440B00D89946 /* DTDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 183291D81B13440B00D89946 /* DTDBManager.m */; };
+		183291DB1B1345C700D89946 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 183291DA1B1345C700D89946 /* libsqlite3.0.dylib */; };
 		184391A11B13068000C24C5D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184391A01B13068000C24C5D /* LoginViewController.m */; };
 		184391A41B13068B00C24C5D /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184391A31B13068B00C24C5D /* SignupViewController.m */; };
 		184391A71B13069800C24C5D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184391A61B13069800C24C5D /* ProfileViewController.m */; };
@@ -57,6 +59,9 @@
 		183291C61B13369F00D89946 /* ZWTTextboxToolbarHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWTTextboxToolbarHandler.m; sourceTree = "<group>"; };
 		183291D31B1343A600D89946 /* DTUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTUser.h; sourceTree = "<group>"; };
 		183291D41B1343A600D89946 /* DTUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTUser.m; sourceTree = "<group>"; };
+		183291D71B13440B00D89946 /* DTDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTDBManager.h; sourceTree = "<group>"; };
+		183291D81B13440B00D89946 /* DTDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTDBManager.m; sourceTree = "<group>"; };
+		183291DA1B1345C700D89946 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		1843919F1B13068000C24C5D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		184391A01B13068000C24C5D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		184391A21B13068B00C24C5D /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
@@ -78,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				183291DB1B1345C700D89946 /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +93,7 @@
 		18322E001B13033200910882 = {
 			isa = PBXGroup;
 			children = (
+				183291DA1B1345C700D89946 /* libsqlite3.0.dylib */,
 				18322E0B1B13033200910882 /* Development Test */,
 				18322E0A1B13033200910882 /* Products */,
 			);
@@ -198,6 +205,8 @@
 		184391B71B130D0D00C24C5D /* Modal */ = {
 			isa = PBXGroup;
 			children = (
+				183291D71B13440B00D89946 /* DTDBManager.h */,
+				183291D81B13440B00D89946 /* DTDBManager.m */,
 				183291D31B1343A600D89946 /* DTUser.h */,
 				183291D41B1343A600D89946 /* DTUser.m */,
 				184391B81B130D3D00C24C5D /* DTGlobal.h */,
@@ -292,6 +301,7 @@
 				184391BA1B130D3D00C24C5D /* DTGlobal.m in Sources */,
 				18322E121B13033200910882 /* AppDelegate.m in Sources */,
 				183291CE1B13369F00D89946 /* ZWTTextboxToolbarHandler.m in Sources */,
+				183291D91B13440B00D89946 /* DTDBManager.m in Sources */,
 				183291D61B1343A600D89946 /* DTUser.m in Sources */,
 				18322E0F1B13033200910882 /* main.m in Sources */,
 				184391A41B13068B00C24C5D /* SignupViewController.m in Sources */,

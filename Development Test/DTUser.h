@@ -6,13 +6,11 @@
 //  Copyright (c) 2015 cloudZon Infosoft. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-NSString *const userFirstName;
-NSString *const userLastName;
-NSString *const userGender;
-NSString *const userBirthDate;
-NSString *const userImage;
+extern NSString *const userFirstName;
+extern NSString *const userLastName;
+extern NSString *const userGender;
+extern NSString *const userBirthDate;
+extern NSString *const userImage;
 
 @interface DTUser : NSObject
 
@@ -22,6 +20,6 @@ NSString *const userImage;
 @property (strong, nonatomic) NSString *birthDate;
 @property (strong, nonatomic) UIImage  *image;
 
-- (instancetype)initWithDictionary:(NSDictionary *)userInfo;
+- (instancetype)initWithDictionary:(NSDictionary *)userInfo NS_DESIGNATED_INITIALIZER;
 
 @end
