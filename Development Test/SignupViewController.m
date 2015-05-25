@@ -130,8 +130,8 @@
     {
         PFUser *newuser = [PFUser user];
         
-        newuser.username= userName;
-        newuser.password= password;
+        newuser.username = userName;
+        newuser.password = password;
         
         [newuser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
         {
