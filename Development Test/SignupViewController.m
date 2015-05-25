@@ -7,6 +7,7 @@
 //
 
 #import "SignupViewController.h"
+#import "ProfileViewController.h"
 
 @interface SignupViewController ()
 
@@ -24,6 +25,10 @@
 
 @property (strong, nonatomic) ZWTTextboxToolbarHandler *textboxHandler;
 
+@property (strong, nonatomic) NSString *userName;
+@property (strong, nonatomic) NSString *password;
+@property (strong, nonatomic) NSString *confirmPassword;
+
 @end
 
 @implementation SignupViewController
@@ -31,6 +36,7 @@
 @synthesize imgvBG, lblCreateAccount, viewCreateAccount;
 @synthesize txtUsername, txtPassword, txtConfirmPassword;
 @synthesize textboxHandler, scrvSignup;
+@synthesize userName, password, confirmPassword;
 
 #pragma mark - UIViewController Methods
 - (void)viewDidLoad
@@ -117,5 +123,96 @@
     }
 }
 
+#pragma mark - Event Methods
+- (IBAction)btnCreateAccountTap:(id)sender
+{
+    if ([self validateInfo])
+    {
+        PFUser *newuser = [PFUser user];
+        
+        newuser.username= userName;
+        newuser.password= password;
+        
+        [newuser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+        {
+            if (!error)
+            {
+                 NSLog(@"Sign Up SuccessFully");
+                 
+                 ProfileViewController *vcProfile = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+                
+                 [self.navigationController pushViewController:vcProfile animated:YES];
+             }
+             else
+             {
+                 NSString *errorString = [error userInfo][@"error"];
+                 
+                 UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"Dev Test"
+                                                                     message:errorString
+                                                                    delegate:nil
+                                                           cancelButtonTitle:@"OK"
+                                                           otherButtonTitles:nil];
+                 [alertview show];
+             }
+        }];
+    }
+}
+
+#pragma mark - Helper Methods
+- (BOOL)validateInfo
+{
+    userName = [txtUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    password = txtPassword.text;
+    
+    confirmPassword = txtConfirmPassword.text;
+    
+    if (userName.length == 0)
+    {
+        UIAlertView *userNameAlert = [[UIAlertView alloc] initWithTitle:@"Developer Test"
+                                                                message:@"Please Enter Username"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+        [userNameAlert show];
+        
+        return NO;
+    }
+    else if (password.length == 0)
+    {
+        UIAlertView *userNameAlert = [[UIAlertView alloc] initWithTitle:@"Developer Test"
+                                                                message:@"Please Enter Password"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+        [userNameAlert show];
+        
+        return NO;
+    }
+    else if (confirmPassword.length == 0)
+    {
+        UIAlertView *userNameAlert = [[UIAlertView alloc] initWithTitle:@"Developer Test"
+                                                                message:@"Please Enter Confirm Password"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+        [userNameAlert show];
+        
+        return NO;
+    }
+    else if (![password isEqualToString:confirmPassword])
+    {
+        UIAlertView *userNameAlert = [[UIAlertView alloc] initWithTitle:@"Developer Test"
+                                                                message:@"Password and Confirm Password must match"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+        [userNameAlert show];
+        
+        return NO;
+    }
+    
+    return YES;
+}
 
 @end

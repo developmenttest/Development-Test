@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import "ProfileViewController.h"
 
 @interface LoginViewController ()
 
@@ -24,11 +25,15 @@
 
 @property (strong, nonatomic) ZWTTextboxToolbarHandler *textboxHandler;
 
+@property (strong, nonatomic) NSString *userName;
+@property (strong, nonatomic) NSString *passWord;
+
 @end
 
 @implementation LoginViewController
 
 @synthesize imgvBG, lblLogin, viewLogin, txtUsername, txtPassword, btnForgotPassowrd, scrvLogin, textboxHandler;
+@synthesize userName, passWord;
 
 #pragma mark - UIViewController Methods
 - (void)viewDidLoad
@@ -122,6 +127,63 @@
             break;
         }
     }
+}
+
+#pragma mark - Event Methos
+- (IBAction)btnLoginTap:(id)sender
+{
+    if ([self validateInfo])
+    {
+        [PFUser logInWithUsernameInBackground:userName password:passWord block:^(PFUser *user, NSError *error)
+        {
+            if (user)
+            {
+                NSLog(@"Login SuccessFully");
+                 
+                ProfileViewController *vcProfile = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+                
+                [self.navigationController pushViewController:vcProfile animated:YES];
+            }
+            else
+            {
+                UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"Developer Test"
+                                                                    message:@"Wrong Username or Password"
+                                                                delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil];
+                [alertview show];
+            }
+        }];
+    }
+}
+
+#pragma mark - Helper Methods
+- (BOOL)validateInfo
+{
+    userName = [txtUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    passWord = [txtPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if (userName.length == 0)
+    {
+        [[[UIAlertView alloc] initWithTitle:@"Dev Test"
+                                    message:@"Please Enter Username"
+                                   delegate:self
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil, nil] show];
+        return NO;
+    }
+    if (passWord.length == 0)
+    {
+        [[[UIAlertView alloc] initWithTitle:@"Dev Test"
+                                    message:@"Please Enter Passsword"
+                                   delegate:self
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil, nil] show];
+        return NO;
+    }
+    
+    return YES;
 }
 
 @end
