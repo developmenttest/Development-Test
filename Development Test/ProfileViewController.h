@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  ProfileViewController.h
 //  Development Test
 //
 //  Created by Development Test on 25/05/15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
+@interface ProfileViewController : UIViewController
 
 @end
