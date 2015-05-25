@@ -1,31 +1,26 @@
 //
-//  SignupViewController.m
+//  ForgotPasswordViewController.m
 //  Development Test
 //
-//  Created by Development Test on 25/05/15.
+//  Created by Chintan Dave on 25/05/15.
 //  Copyright (c) 2015 Development. All rights reserved.
 //
 
-#import "SignupViewController.h"
+#import "ForgotPasswordViewController.h"
 
-@interface SignupViewController ()
+@interface ForgotPasswordViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgvBG;
 
-@property (weak, nonatomic) IBOutlet UILabel *lblCreateAccount;
+@property (weak, nonatomic) IBOutlet UILabel *lblReset;
+@property (weak, nonatomic) IBOutlet UIView *viewReset;
 
-@property (weak, nonatomic) IBOutlet UIView *viewCreateAccount;
-
-@property (weak, nonatomic) IBOutlet UITextField *txtUsername;
-@property (weak, nonatomic) IBOutlet UITextField *txtPassword;
-@property (weak, nonatomic) IBOutlet UITextField *txtConfirmPassword;
-
+@property (weak, nonatomic) IBOutlet UITextField *txtEmail;
 @end
 
-@implementation SignupViewController
+@implementation ForgotPasswordViewController
 
-@synthesize imgvBG, lblCreateAccount, viewCreateAccount;
-@synthesize txtUsername, txtPassword, txtConfirmPassword;
+@synthesize imgvBG, lblReset, viewReset, txtEmail;
 
 #pragma mark - UIViewController Methods
 - (void)viewDidLoad
@@ -44,33 +39,29 @@
 - (void)prepareViews
 {
     [self setBackgroundImage];
-    [self prepareSignupView];
+    [self prepareResetView];
     [self prepareTextFields];
 }
 
 - (void)prepareTextFields
 {
-    NSArray *allTextFields = @[txtUsername, txtPassword, txtConfirmPassword];
+    txtEmail.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 40)];
     
-    for(UITextField *textField in allTextFields)
-    {
-        textField.leftViewMode = UITextFieldViewModeAlways;
-        textField.leftView     = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 40)];
-    }
+    txtEmail.leftViewMode = UITextFieldViewModeAlways;
 }
 
-- (void)prepareSignupView
+- (void)prepareResetView
 {
-    viewCreateAccount.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
-    viewCreateAccount.clipsToBounds = YES;
+    viewReset.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+    viewReset.clipsToBounds = YES;
     
-    viewCreateAccount.layer.cornerRadius = 10.0;
+    viewReset.layer.cornerRadius = 10.0;
     
-    CGRect frame = lblCreateAccount.frame;
+    CGRect frame = lblReset.frame;
     
-    frame.origin.y = CGRectGetMinY(viewCreateAccount.frame) - CGRectGetHeight(frame) - 10;
+    frame.origin.y = CGRectGetMinY(viewReset.frame) - CGRectGetHeight(frame);
     
-    lblCreateAccount.frame = frame;
+    lblReset.frame = frame;
 }
 
 - (void)setBackgroundImage
@@ -109,6 +100,5 @@
         }
     }
 }
-
 
 @end

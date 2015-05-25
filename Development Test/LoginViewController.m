@@ -49,8 +49,8 @@
 
 - (void)prepareTextFields
 {
-    txtUsername.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 40)];
-    txtPassword.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 40)];
+    txtUsername.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 40)];
+    txtPassword.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 40)];
     
     txtUsername.leftViewMode = UITextFieldViewModeAlways;
     txtPassword.leftViewMode = UITextFieldViewModeAlways;

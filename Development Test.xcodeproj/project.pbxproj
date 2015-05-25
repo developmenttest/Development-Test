@@ -19,6 +19,7 @@
 		183291B91B1325F700D89946 /* button_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 183291B31B1325F700D89946 /* button_login.png */; };
 		183291BA1B1325F700D89946 /* button_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183291B41B1325F700D89946 /* button_login@2x.png */; };
 		183291BB1B1325F700D89946 /* button_login@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183291B51B1325F700D89946 /* button_login@3x.png */; };
+		183291BE1B13344000D89946 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183291BD1B13344000D89946 /* ForgotPasswordViewController.m */; };
 		184391A11B13068000C24C5D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184391A01B13068000C24C5D /* LoginViewController.m */; };
 		184391A41B13068B00C24C5D /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184391A31B13068B00C24C5D /* SignupViewController.m */; };
 		184391A71B13069800C24C5D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184391A61B13069800C24C5D /* ProfileViewController.m */; };
@@ -48,6 +49,8 @@
 		183291B31B1325F700D89946 /* button_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_login.png; sourceTree = "<group>"; };
 		183291B41B1325F700D89946 /* button_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_login@2x.png"; sourceTree = "<group>"; };
 		183291B51B1325F700D89946 /* button_login@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_login@3x.png"; sourceTree = "<group>"; };
+		183291BC1B13344000D89946 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPasswordViewController.h; sourceTree = "<group>"; };
+		183291BD1B13344000D89946 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPasswordViewController.m; sourceTree = "<group>"; };
 		1843919F1B13068000C24C5D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		184391A01B13068000C24C5D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		184391A21B13068B00C24C5D /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
@@ -105,6 +108,8 @@
 				184391A31B13068B00C24C5D /* SignupViewController.m */,
 				184391A51B13069800C24C5D /* ProfileViewController.h */,
 				184391A61B13069800C24C5D /* ProfileViewController.m */,
+				183291BC1B13344000D89946 /* ForgotPasswordViewController.h */,
+				183291BD1B13344000D89946 /* ForgotPasswordViewController.m */,
 				18322E161B13033200910882 /* Main.storyboard */,
 				18322E191B13033200910882 /* Images.xcassets */,
 				18322E0C1B13033200910882 /* Supporting Files */,
@@ -262,6 +267,7 @@
 				18322E121B13033200910882 /* AppDelegate.m in Sources */,
 				18322E0F1B13033200910882 /* main.m in Sources */,
 				184391A41B13068B00C24C5D /* SignupViewController.m in Sources */,
+				183291BE1B13344000D89946 /* ForgotPasswordViewController.m in Sources */,
 				184391A11B13068000C24C5D /* LoginViewController.m in Sources */,
 				184391A71B13069800C24C5D /* ProfileViewController.m in Sources */,
 			);
