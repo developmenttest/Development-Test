@@ -11,11 +11,24 @@
 		18322E121B13033200910882 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18322E111B13033200910882 /* AppDelegate.m */; };
 		18322E181B13033200910882 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18322E161B13033200910882 /* Main.storyboard */; };
 		18322E1A1B13033200910882 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18322E191B13033200910882 /* Images.xcassets */; };
+		183291AD1B13257E00D89946 /* form_field.png in Resources */ = {isa = PBXBuildFile; fileRef = 183291AB1B13257E00D89946 /* form_field.png */; };
+		183291AE1B13257E00D89946 /* form_field@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183291AC1B13257E00D89946 /* form_field@2x.png */; };
+		183291B61B1325F700D89946 /* button_generic.png in Resources */ = {isa = PBXBuildFile; fileRef = 183291B01B1325F700D89946 /* button_generic.png */; };
+		183291B71B1325F700D89946 /* button_generic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183291B11B1325F700D89946 /* button_generic@2x.png */; };
+		183291B81B1325F700D89946 /* button_generic@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183291B21B1325F700D89946 /* button_generic@3x.png */; };
+		183291B91B1325F700D89946 /* button_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 183291B31B1325F700D89946 /* button_login.png */; };
+		183291BA1B1325F700D89946 /* button_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183291B41B1325F700D89946 /* button_login@2x.png */; };
+		183291BB1B1325F700D89946 /* button_login@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183291B51B1325F700D89946 /* button_login@3x.png */; };
 		184391A11B13068000C24C5D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184391A01B13068000C24C5D /* LoginViewController.m */; };
 		184391A41B13068B00C24C5D /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184391A31B13068B00C24C5D /* SignupViewController.m */; };
 		184391A71B13069800C24C5D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184391A61B13069800C24C5D /* ProfileViewController.m */; };
 		184391AB1B130B4500C24C5D /* Roboto-Bold_15.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 184391A91B130B4500C24C5D /* Roboto-Bold_15.ttf */; };
 		184391AC1B130B4500C24C5D /* Roboto-Light_15.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 184391AA1B130B4500C24C5D /* Roboto-Light_15.ttf */; };
+		184391B01B130C6F00C24C5D /* bg-480@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184391AF1B130C6F00C24C5D /* bg-480@2x.png */; };
+		184391B21B130CA300C24C5D /* bg-568@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184391B11B130CA300C24C5D /* bg-568@2x.png */; };
+		184391B41B130CD900C24C5D /* bg-667@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184391B31B130CD900C24C5D /* bg-667@2x.png */; };
+		184391B61B130CEB00C24C5D /* bg-736@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184391B51B130CEB00C24C5D /* bg-736@2x.png */; };
+		184391BA1B130D3D00C24C5D /* DTGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 184391B91B130D3D00C24C5D /* DTGlobal.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +39,15 @@
 		18322E111B13033200910882 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		18322E171B13033200910882 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		18322E191B13033200910882 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		183291AA1B13211C00D89946 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		183291AB1B13257E00D89946 /* form_field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = form_field.png; sourceTree = "<group>"; };
+		183291AC1B13257E00D89946 /* form_field@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "form_field@2x.png"; sourceTree = "<group>"; };
+		183291B01B1325F700D89946 /* button_generic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_generic.png; sourceTree = "<group>"; };
+		183291B11B1325F700D89946 /* button_generic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_generic@2x.png"; sourceTree = "<group>"; };
+		183291B21B1325F700D89946 /* button_generic@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_generic@3x.png"; sourceTree = "<group>"; };
+		183291B31B1325F700D89946 /* button_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_login.png; sourceTree = "<group>"; };
+		183291B41B1325F700D89946 /* button_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_login@2x.png"; sourceTree = "<group>"; };
+		183291B51B1325F700D89946 /* button_login@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_login@3x.png"; sourceTree = "<group>"; };
 		1843919F1B13068000C24C5D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		184391A01B13068000C24C5D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		184391A21B13068B00C24C5D /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
@@ -34,6 +56,12 @@
 		184391A61B13069800C24C5D /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		184391A91B130B4500C24C5D /* Roboto-Bold_15.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold_15.ttf"; sourceTree = "<group>"; };
 		184391AA1B130B4500C24C5D /* Roboto-Light_15.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light_15.ttf"; sourceTree = "<group>"; };
+		184391AF1B130C6F00C24C5D /* bg-480@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-480@2x.png"; sourceTree = "<group>"; };
+		184391B11B130CA300C24C5D /* bg-568@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-568@2x.png"; sourceTree = "<group>"; };
+		184391B31B130CD900C24C5D /* bg-667@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-667@2x.png"; sourceTree = "<group>"; };
+		184391B51B130CEB00C24C5D /* bg-736@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-736@2x.png"; sourceTree = "<group>"; };
+		184391B81B130D3D00C24C5D /* DTGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTGlobal.h; sourceTree = "<group>"; };
+		184391B91B130D3D00C24C5D /* DTGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTGlobal.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +94,7 @@
 		18322E0B1B13033200910882 /* Development Test */ = {
 			isa = PBXGroup;
 			children = (
+				184391B71B130D0D00C24C5D /* Modal */,
 				184391AD1B130B6700C24C5D /* Images */,
 				184391A81B130B3B00C24C5D /* Font */,
 				18322E101B13033200910882 /* AppDelegate.h */,
@@ -88,8 +117,24 @@
 			children = (
 				18322E0D1B13033200910882 /* Info.plist */,
 				18322E0E1B13033200910882 /* main.m */,
+				183291AA1B13211C00D89946 /* PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		183291AF1B13258200D89946 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				183291B01B1325F700D89946 /* button_generic.png */,
+				183291B11B1325F700D89946 /* button_generic@2x.png */,
+				183291B21B1325F700D89946 /* button_generic@3x.png */,
+				183291B31B1325F700D89946 /* button_login.png */,
+				183291B41B1325F700D89946 /* button_login@2x.png */,
+				183291B51B1325F700D89946 /* button_login@3x.png */,
+				183291AB1B13257E00D89946 /* form_field.png */,
+				183291AC1B13257E00D89946 /* form_field@2x.png */,
+			);
+			name = Common;
 			sourceTree = "<group>";
 		};
 		184391A81B130B3B00C24C5D /* Font */ = {
@@ -104,8 +149,30 @@
 		184391AD1B130B6700C24C5D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				183291AF1B13258200D89946 /* Common */,
+				184391AE1B130C3D00C24C5D /* Background */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		184391AE1B130C3D00C24C5D /* Background */ = {
+			isa = PBXGroup;
+			children = (
+				184391AF1B130C6F00C24C5D /* bg-480@2x.png */,
+				184391B11B130CA300C24C5D /* bg-568@2x.png */,
+				184391B31B130CD900C24C5D /* bg-667@2x.png */,
+				184391B51B130CEB00C24C5D /* bg-736@2x.png */,
+			);
+			name = Background;
+			sourceTree = "<group>";
+		};
+		184391B71B130D0D00C24C5D /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				184391B81B130D3D00C24C5D /* DTGlobal.h */,
+				184391B91B130D3D00C24C5D /* DTGlobal.m */,
+			);
+			name = Modal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,10 +232,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				184391B61B130CEB00C24C5D /* bg-736@2x.png in Resources */,
+				183291BA1B1325F700D89946 /* button_login@2x.png in Resources */,
+				184391B01B130C6F00C24C5D /* bg-480@2x.png in Resources */,
 				184391AB1B130B4500C24C5D /* Roboto-Bold_15.ttf in Resources */,
+				184391B21B130CA300C24C5D /* bg-568@2x.png in Resources */,
+				183291BB1B1325F700D89946 /* button_login@3x.png in Resources */,
+				183291B81B1325F700D89946 /* button_generic@3x.png in Resources */,
+				183291B91B1325F700D89946 /* button_login.png in Resources */,
 				18322E181B13033200910882 /* Main.storyboard in Resources */,
 				184391AC1B130B4500C24C5D /* Roboto-Light_15.ttf in Resources */,
+				183291B61B1325F700D89946 /* button_generic.png in Resources */,
 				18322E1A1B13033200910882 /* Images.xcassets in Resources */,
+				183291AE1B13257E00D89946 /* form_field@2x.png in Resources */,
+				184391B41B130CD900C24C5D /* bg-667@2x.png in Resources */,
+				183291B71B1325F700D89946 /* button_generic@2x.png in Resources */,
+				183291AD1B13257E00D89946 /* form_field.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,6 +258,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				184391BA1B130D3D00C24C5D /* DTGlobal.m in Sources */,
 				18322E121B13033200910882 /* AppDelegate.m in Sources */,
 				18322E0F1B13033200910882 /* main.m in Sources */,
 				184391A41B13068B00C24C5D /* SignupViewController.m in Sources */,
@@ -286,6 +366,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)//PrefixHeader.pch";
 				INFOPLIST_FILE = "Development Test/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -298,6 +380,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)//PrefixHeader.pch";
 				INFOPLIST_FILE = "Development Test/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
