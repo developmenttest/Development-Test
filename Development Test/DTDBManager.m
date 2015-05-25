@@ -138,7 +138,7 @@ const char *dbPath;
     
     sqlite3_stmt *statement;
     
-    if (sqlite3_open(dbPath, &connectToDB)==SQLITE_OK)
+    if (sqlite3_open(dbPath, &connectToDB) == SQLITE_OK)
     {
         NSString *string=[NSString stringWithFormat:@"select * from %@",tableName];
         
