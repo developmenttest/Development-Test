@@ -65,7 +65,7 @@
 
 - (void)prepareLoginView
 {
-    viewLogin.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+    viewLogin.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.7];
     viewLogin.clipsToBounds = YES;
     
     viewLogin.layer.cornerRadius = 10.0;

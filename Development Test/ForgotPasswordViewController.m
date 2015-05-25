@@ -19,6 +19,8 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrvReset;
 
+@property (weak, nonatomic) IBOutlet UIButton *btnReset;
+
 @property (strong, nonatomic) ZWTTextboxToolbarHandler *textboxHandler;;
 
 @end
@@ -26,7 +28,7 @@
 @implementation ForgotPasswordViewController
 
 @synthesize imgvBG, lblReset, viewReset, txtEmail;
-@synthesize textboxHandler, scrvReset;
+@synthesize textboxHandler, scrvReset, btnReset;
 
 #pragma mark - UIViewController Methods
 - (void)viewDidLoad
@@ -60,7 +62,7 @@
 
 - (void)prepareResetView
 {
-    viewReset.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+    viewReset.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.7];
     viewReset.clipsToBounds = YES;
     
     viewReset.layer.cornerRadius = 10.0;
@@ -72,6 +74,8 @@
     lblReset.frame = frame;
     
     scrvReset.contentSize = CGSizeMake(CGRectGetWidth(scrvReset.frame), CGRectGetMaxY(viewReset.frame));
+    
+    btnReset.titleLabel.textAlignment = NSTextAlignmentCenter;
 }
 
 - (void)setBackgroundImage

@@ -68,7 +68,7 @@
 
 - (void)prepareSignupView
 {
-    viewCreateAccount.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.8];
+    viewCreateAccount.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.7];
     viewCreateAccount.clipsToBounds = YES;
     
     viewCreateAccount.layer.cornerRadius = 10.0;
