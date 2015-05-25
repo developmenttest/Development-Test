@@ -109,6 +109,7 @@
                         <outlet property="btnForgotPassowrd" destination="pLm-dd-cMR" id="hxM-wp-dNv"/>
                         <outlet property="imgvBG" destination="M1e-b6-8tz" id="lrf-LQ-UsF"/>
                         <outlet property="lblLogin" destination="KPG-7d-Y1H" id="STo-Mr-8Pa"/>
+                        <outlet property="scrvLogin" destination="d8W-aG-K9D" id="3ha-s6-yOx"/>
                         <outlet property="txtPassword" destination="r27-am-cJd" id="qqh-B8-YAu"/>
                         <outlet property="txtUsername" destination="aZQ-xh-voi" id="I4D-WV-BcC"/>
                         <outlet property="viewLogin" destination="3lo-ui-KEb" id="ubb-UG-gzS"/>
@@ -173,7 +174,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RESET PASSOWORD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ioy-hL-DMm">
                                         <rect key="frame" x="0.0" y="41" width="320" height="66"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="30"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="32"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -186,6 +187,7 @@
                     <connections>
                         <outlet property="imgvBG" destination="wEf-8Q-jzV" id="Dkk-Ch-Hbf"/>
                         <outlet property="lblReset" destination="ioy-hL-DMm" id="9Am-Dr-5HB"/>
+                        <outlet property="scrvReset" destination="WlQ-Yz-eUT" id="pgU-zs-Hgw"/>
                         <outlet property="txtEmail" destination="gu8-N1-wlp" id="NaL-I1-gX1"/>
                         <outlet property="viewReset" destination="wjc-ui-s7v" id="li4-Bg-ucz"/>
                     </connections>
@@ -280,6 +282,7 @@
                     <connections>
                         <outlet property="imgvBG" destination="CKK-7z-OHh" id="5Pz-6e-jbH"/>
                         <outlet property="lblCreateAccount" destination="Aoh-He-1kk" id="9TG-o1-0bi"/>
+                        <outlet property="scrvSignup" destination="N8f-cp-gff" id="lFa-Qd-m29"/>
                         <outlet property="txtConfirmPassword" destination="hdj-fd-U9p" id="V9M-ju-wPT"/>
                         <outlet property="txtPassword" destination="C3n-Jl-RKp" id="nLX-ch-v4Q"/>
                         <outlet property="txtUsername" destination="PS3-hV-cIs" id="Zag-Tr-PVF"/>

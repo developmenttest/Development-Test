@@ -2,7 +2,7 @@
 //  ForgotPasswordViewController.m
 //  Development Test
 //
-//  Created by Chintan Dave on 25/05/15.
+//  Created by Development Test on 25/05/15.
 //  Copyright (c) 2015 Development. All rights reserved.
 //
 
@@ -16,11 +16,17 @@
 @property (weak, nonatomic) IBOutlet UIView *viewReset;
 
 @property (weak, nonatomic) IBOutlet UITextField *txtEmail;
+
+@property (weak, nonatomic) IBOutlet UIScrollView *scrvReset;
+
+@property (strong, nonatomic) ZWTTextboxToolbarHandler *textboxHandler;;
+
 @end
 
 @implementation ForgotPasswordViewController
 
 @synthesize imgvBG, lblReset, viewReset, txtEmail;
+@synthesize textboxHandler, scrvReset;
 
 #pragma mark - UIViewController Methods
 - (void)viewDidLoad
@@ -48,6 +54,8 @@
     txtEmail.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 40)];
     
     txtEmail.leftViewMode = UITextFieldViewModeAlways;
+    
+    textboxHandler = [[ZWTTextboxToolbarHandler alloc] initWithTextboxs:@[txtEmail] andScroll:scrvReset];
 }
 
 - (void)prepareResetView
@@ -62,6 +70,8 @@
     frame.origin.y = CGRectGetMinY(viewReset.frame) - CGRectGetHeight(frame);
     
     lblReset.frame = frame;
+    
+    scrvReset.contentSize = CGSizeMake(CGRectGetWidth(scrvReset.frame), CGRectGetMaxY(viewReset.frame));
 }
 
 - (void)setBackgroundImage

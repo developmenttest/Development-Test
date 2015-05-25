@@ -13,4 +13,5 @@
     #import <Foundation/Foundation.h>
 
     #import "DTGlobal.h"
+    #import "ZWTTextboxToolbarHandler.h"
 #endif

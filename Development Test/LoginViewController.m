@@ -19,11 +19,16 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtPassword;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnForgotPassowrd;
+
+@property (weak, nonatomic) IBOutlet UIScrollView *scrvLogin;
+
+@property (strong, nonatomic) ZWTTextboxToolbarHandler *textboxHandler;
+
 @end
 
 @implementation LoginViewController
 
-@synthesize imgvBG, lblLogin, viewLogin, txtUsername, txtPassword, btnForgotPassowrd;
+@synthesize imgvBG, lblLogin, viewLogin, txtUsername, txtPassword, btnForgotPassowrd, scrvLogin, textboxHandler;
 
 #pragma mark - UIViewController Methods
 - (void)viewDidLoad
@@ -54,6 +59,8 @@
     
     txtUsername.leftViewMode = UITextFieldViewModeAlways;
     txtPassword.leftViewMode = UITextFieldViewModeAlways;
+    
+    textboxHandler = [[ZWTTextboxToolbarHandler alloc] initWithTextboxs:@[txtUsername, txtPassword] andScroll:scrvLogin];
 }
 
 - (void)prepareLoginView
@@ -68,6 +75,8 @@
     frame.origin.y = CGRectGetMinY(viewLogin.frame) - CGRectGetHeight(frame) - 10;
     
     lblLogin.frame = frame;
+    
+    scrvLogin.contentSize = CGSizeMake(CGRectGetWidth(scrvLogin.frame), CGRectGetMaxY(viewLogin.frame));
 }
 
 - (void)prepareForgotPassword

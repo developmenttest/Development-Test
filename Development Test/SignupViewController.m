@@ -20,12 +20,17 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtPassword;
 @property (weak, nonatomic) IBOutlet UITextField *txtConfirmPassword;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrvSignup;
+
+@property (strong, nonatomic) ZWTTextboxToolbarHandler *textboxHandler;
+
 @end
 
 @implementation SignupViewController
 
 @synthesize imgvBG, lblCreateAccount, viewCreateAccount;
 @synthesize txtUsername, txtPassword, txtConfirmPassword;
+@synthesize textboxHandler, scrvSignup;
 
 #pragma mark - UIViewController Methods
 - (void)viewDidLoad
@@ -57,6 +62,8 @@
         textField.leftViewMode = UITextFieldViewModeAlways;
         textField.leftView     = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 40)];
     }
+    
+    textboxHandler = [[ZWTTextboxToolbarHandler alloc] initWithTextboxs:allTextFields andScroll:scrvSignup];
 }
 
 - (void)prepareSignupView
