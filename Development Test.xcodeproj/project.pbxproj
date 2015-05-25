@@ -14,6 +14,8 @@
 		184391A11B13068000C24C5D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184391A01B13068000C24C5D /* LoginViewController.m */; };
 		184391A41B13068B00C24C5D /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184391A31B13068B00C24C5D /* SignupViewController.m */; };
 		184391A71B13069800C24C5D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184391A61B13069800C24C5D /* ProfileViewController.m */; };
+		184391AB1B130B4500C24C5D /* Roboto-Bold_15.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 184391A91B130B4500C24C5D /* Roboto-Bold_15.ttf */; };
+		184391AC1B130B4500C24C5D /* Roboto-Light_15.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 184391AA1B130B4500C24C5D /* Roboto-Light_15.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		184391A31B13068B00C24C5D /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
 		184391A51B13069800C24C5D /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		184391A61B13069800C24C5D /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		184391A91B130B4500C24C5D /* Roboto-Bold_15.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold_15.ttf"; sourceTree = "<group>"; };
+		184391AA1B130B4500C24C5D /* Roboto-Light_15.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light_15.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,8 @@
 		18322E0B1B13033200910882 /* Development Test */ = {
 			isa = PBXGroup;
 			children = (
+				184391AD1B130B6700C24C5D /* Images */,
+				184391A81B130B3B00C24C5D /* Font */,
 				18322E101B13033200910882 /* AppDelegate.h */,
 				18322E111B13033200910882 /* AppDelegate.m */,
 				1843919F1B13068000C24C5D /* LoginViewController.h */,
@@ -84,6 +90,22 @@
 				18322E0E1B13033200910882 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		184391A81B130B3B00C24C5D /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				184391A91B130B4500C24C5D /* Roboto-Bold_15.ttf */,
+				184391AA1B130B4500C24C5D /* Roboto-Light_15.ttf */,
+			);
+			name = Font;
+			sourceTree = "<group>";
+		};
+		184391AD1B130B6700C24C5D /* Images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,7 +165,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				184391AB1B130B4500C24C5D /* Roboto-Bold_15.ttf in Resources */,
 				18322E181B13033200910882 /* Main.storyboard in Resources */,
+				184391AC1B130B4500C24C5D /* Roboto-Light_15.ttf in Resources */,
 				18322E1A1B13033200910882 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
