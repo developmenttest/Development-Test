@@ -12,6 +12,8 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 
+    #import <Parse/Parse.h>
     #import "DTGlobal.h"
     #import "ZWTTextboxToolbarHandler.h"
+
 #endif
