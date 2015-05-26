@@ -128,6 +128,8 @@
 {
     if ([self validateInfo])
     {
+        [textboxHandler btnDoneTap];
+        
         PFUser *newuser = [PFUser user];
         
         newuser.username = userName;

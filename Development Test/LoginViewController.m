@@ -134,6 +134,10 @@
 {
     if ([self validateInfo])
     {
+        [textboxHandler btnDoneTap];
+        
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
+        
         [PFUser logInWithUsernameInBackground:userName password:passWord block:^(PFUser *user, NSError *error)
         {
             if (user)
@@ -153,6 +157,8 @@
                                                           otherButtonTitles:nil];
                 [alertview show];
             }
+            
+            [SVProgressHUD dismiss];
         }];
     }
 }

@@ -14,6 +14,7 @@ static NSString *ASTitleFromCancel = @"Cancel";
 
 #import "ProfileViewController.h"
 #import "DTDBManager.h"
+#import "DTUser.h"
 
 @interface ProfileViewController ()
 <UIActionSheetDelegate,
@@ -148,6 +149,8 @@ ZWTTextboxToolbarHandlerDelegate>
 {
     if([self validateUserProfile])
     {
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
+        
         if([dbManager fetchData])
         {
             [dbManager updateDataForfirstName:firstName lastName:lastName dateOfBirth:birthDate gender:gender image:imageData];
@@ -156,16 +159,56 @@ ZWTTextboxToolbarHandlerDelegate>
         {
             [dbManager saveProfile:firstName lastName:lastName date:birthDate data:imageData gender:gender];
         }
+        
+        [self saveInParse];
     }
 }
 
 #pragma mark - Helper Methods
+- (void)saveInParse
+{
+    PFFile *imageFile = [PFFile fileWithName:@"Image.png" data:imageData];
+    
+    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    {
+        if (!error)
+        {
+            [[PFUser currentUser] setObject:imageFile   forKey:userImage];
+            [[PFUser currentUser] setObject:firstName   forKey:userFirstName];
+            [[PFUser currentUser] setObject:lastName    forKey:userLastName];
+            [[PFUser currentUser] setObject:birthDate   forKey:userBirthDate];
+            [[PFUser currentUser] setObject:gender      forKey:userGender];
+            
+            [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+            {
+                if (!error)
+                {
+                    NSLog(@"Saved");
+                    
+                    [[[UIAlertView alloc] initWithTitle:@"Dev Test"
+                                                message:@"Profile Saved."
+                                               delegate:self
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil, nil] show];
+                }
+                else
+                {
+                    NSLog(@"Error: %@ %@", error, [error userInfo]);
+                }
+                
+                [SVProgressHUD dismiss];
+            }];
+        }
+    }];
+}
+
 - (BOOL)validateUserProfile
 {
     firstName = [txtFirstName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     lastName  = [txtLastName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     birthDate = txtDateOfBirth.text;
     imageData = [NSData dataWithData:UIImagePNGRepresentation([btnProfileImage imageForState:UIControlStateNormal])];
+    gender    = (btnGender.isSelected) ? @"Female" : @"Male";
     
     if (firstName.length == 0)
     {

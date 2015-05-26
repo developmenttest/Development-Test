@@ -15,5 +15,5 @@
     #import <Parse/Parse.h>
     #import "DTGlobal.h"
     #import "ZWTTextboxToolbarHandler.h"
-
+    #import <SVProgressHUD/SVProgressHUD.h>
 #endif

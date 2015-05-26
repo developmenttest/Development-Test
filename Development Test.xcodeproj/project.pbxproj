@@ -57,7 +57,6 @@
 		1857109B1B135F020015BB49 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1857109A1B135F020015BB49 /* MediaPlayer.framework */; };
 		1857109D1B135F130015BB49 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1857109C1B135F130015BB49 /* Parse.framework */; };
 		1857109F1B135F1B0015BB49 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1857109E1B135F1B0015BB49 /* Bolts.framework */; };
-		185710A11B135F280015BB49 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185710A01B135F280015BB49 /* ParseFacebookUtils.framework */; };
 		33195B62D63646DB769AA082 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B4CDC87640880B77EAA07EF /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -124,7 +123,6 @@
 		1857109A1B135F020015BB49 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		1857109C1B135F130015BB49 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = ../Parse.framework; sourceTree = "<group>"; };
 		1857109E1B135F1B0015BB49 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../Bolts.framework; sourceTree = "<group>"; };
-		185710A01B135F280015BB49 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = ../ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		546FF9066662AE366688C0D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		9B4CDC87640880B77EAA07EF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2CDBB43ACDC1DF0DA24D989 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -143,7 +141,6 @@
 				185710911B135EE10015BB49 /* StoreKit.framework in Frameworks */,
 				1857109F1B135F1B0015BB49 /* Bolts.framework in Frameworks */,
 				1857109D1B135F130015BB49 /* Parse.framework in Frameworks */,
-				185710A11B135F280015BB49 /* ParseFacebookUtils.framework in Frameworks */,
 				183291DB1B1345C700D89946 /* libsqlite3.0.dylib in Frameworks */,
 				33195B62D63646DB769AA082 /* libPods.a in Frameworks */,
 			);
@@ -312,7 +309,6 @@
 				185710921B135EE80015BB49 /* MobileCoreServices.framework */,
 				185710901B135EE10015BB49 /* StoreKit.framework */,
 				183291DA1B1345C700D89946 /* libsqlite3.0.dylib */,
-				185710A01B135F280015BB49 /* ParseFacebookUtils.framework */,
 				1857109C1B135F130015BB49 /* Parse.framework */,
 				1857109E1B135F1B0015BB49 /* Bolts.framework */,
 			);
@@ -571,6 +567,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
