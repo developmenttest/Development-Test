@@ -160,6 +160,8 @@
                                             delegate:self
                                    cancelButtonTitle:@"OK"
                                    otherButtonTitles:nil, nil] show];
+                 
+                 [self dismissViewControllerAnimated:YES completion:nil];
              }
              
              [SVProgressHUD dismiss];

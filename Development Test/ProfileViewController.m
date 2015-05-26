@@ -63,13 +63,12 @@ UIScrollViewDelegate>
 {
     [super viewDidLoad];
     
+    isLoadTime = YES;
+    
     [self prepareViews];
 
     dbManager = [[DTDBManager alloc] initDatabasewithName:@"users"];
-
-    isLoadTime = YES;
 }
-
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -157,6 +156,8 @@ UIScrollViewDelegate>
     NSString *selectedDateString = [df stringFromDate:selectedDate];
     
     txtDateOfBirth.text = selectedDateString;
+    
+    isChange = YES;
 }
 
 - (IBAction)btnProfileTap:(UIButton *)sender
@@ -171,7 +172,7 @@ UIScrollViewDelegate>
     [videoActionSheet showInView:self.view];
 }
 
-- (IBAction)swipeDown:(UISwipeGestureRecognizer *)sender
+- (void)swipeDown
 {
     if(isChange)
     {
@@ -251,6 +252,10 @@ UIScrollViewDelegate>
                     [self displayUser:localUser];
                     [self saveInParse:localUser];
                 }
+                else
+                {
+                    [SVProgressHUD dismiss];
+                }
             }
         }];
     }
@@ -264,6 +269,8 @@ UIScrollViewDelegate>
 
 - (void)displayUser:(DTUser *)user
 {
+    [SVProgressHUD dismiss];
+    
     isChange = NO;
     
     txtFirstName.text   = user.firstName;
@@ -292,68 +299,81 @@ UIScrollViewDelegate>
     scrvProfile.contentOffset = CGPointMake(0, 0);
     scrvProfile.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
-    [SVProgressHUD dismiss];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    
+    NSDate *date = [dateFormatter dateFromString:user.birthDate];
+    
+    [dpBirthDate setDate:date];
 }
 
 - (void)loadUserFromParse:(void(^)(DTUser *userDetail))parseUser
 {
     [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error)
     {
-        PFUser *fetcheduser = (PFUser *)object;
-         
-        PFFile *imageFile = [fetcheduser objectForKey:userImage];
-         
-        NSURL *imgURL = [NSURL URLWithString:[imageFile url]];
-        
-        NSData *dataImage = [[NSData alloc] initWithContentsOfURL:imgURL];
-        
-        UIImage *profileImage = [UIImage imageWithData:dataImage];
-        
-        NSString *modifiedDate = [fetcheduser objectForKey:userModifiedDate];
-        
-        NSMutableDictionary *userInfo = @{}.mutableCopy;
-        
-        if([fetcheduser objectForKey:userFirstName])
+        if(!error)
         {
-            [userInfo setObject:[fetcheduser objectForKey:userFirstName] forKey:userFirstName];
-        }
-        
-        if([fetcheduser objectForKey:userLastName])
-        {
-            [userInfo setObject:[fetcheduser objectForKey:userLastName] forKey:userLastName];
-        }
-       
-        if([fetcheduser objectForKey:userBirthDate])
-        {
-            [userInfo setObject:[fetcheduser objectForKey:userBirthDate] forKey:userBirthDate];
-        }
-        
-        if([fetcheduser objectForKey:userGender])
-        {
-            [userInfo setObject:[fetcheduser objectForKey:userGender] forKey:userGender];
-        }
-        
-        if(profileImage)
-        {
-            [userInfo setObject:profileImage forKey:userImage];
+            PFUser *fetcheduser = (PFUser *)object;
+             
+            PFFile *imageFile = [fetcheduser objectForKey:userImage];
+             
+            NSURL *imgURL = [NSURL URLWithString:[imageFile url]];
+            
+            NSData *dataImage = [[NSData alloc] initWithContentsOfURL:imgURL];
+            
+            UIImage *profileImage = [UIImage imageWithData:dataImage];
+            
+            NSString *modifiedDate = [fetcheduser objectForKey:userModifiedDate];
+            
+            NSMutableDictionary *userInfo = @{}.mutableCopy;
+            
+            if([fetcheduser objectForKey:userFirstName])
+            {
+                [userInfo setObject:[fetcheduser objectForKey:userFirstName] forKey:userFirstName];
+            }
+            
+            if([fetcheduser objectForKey:userLastName])
+            {
+                [userInfo setObject:[fetcheduser objectForKey:userLastName] forKey:userLastName];
+            }
+           
+            if([fetcheduser objectForKey:userBirthDate])
+            {
+                [userInfo setObject:[fetcheduser objectForKey:userBirthDate] forKey:userBirthDate];
+            }
+            
+            if([fetcheduser objectForKey:userGender])
+            {
+                [userInfo setObject:[fetcheduser objectForKey:userGender] forKey:userGender];
+            }
+            
+            if(profileImage)
+            {
+                [userInfo setObject:profileImage forKey:userImage];
+            }
+            else
+            {
+                [userInfo setObject:[UIImage imageNamed:@"placeholder_profilepicture"] forKey:userImage];
+            }
+            
+            if(modifiedDate)
+            {
+                [userInfo setObject:modifiedDate forKey:userModifiedDate];
+            }
+            else
+            {
+                [userInfo setObject:[NSDate dateWithTimeIntervalSince1970:0] forKey:userModifiedDate];
+            }
+            
+            DTUser *currentUser = [[DTUser alloc]initWithDictionary:userInfo];
+            
+            parseUser(currentUser);
         }
         else
         {
-            [userInfo setObject:[UIImage imageNamed:@"placeholder_profilepicture"] forKey:userImage];
+            [SVProgressHUD dismiss];
         }
-        
-        if(modifiedDate)
-        {
-            [userInfo setObject:modifiedDate forKey:userModifiedDate];
-        }
-        else
-        {
-            [userInfo setObject:[NSDate dateWithTimeIntervalSince1970:0] forKey:userModifiedDate];
-        }
-        
-        DTUser *currentUser = [[DTUser alloc]initWithDictionary:userInfo];
-        
-        parseUser(currentUser);
      }];
 }
 
@@ -409,11 +429,23 @@ UIScrollViewDelegate>
     {
         NSLog(@"Please Enter FirstName.");
         
+        [[[UIAlertView alloc] initWithTitle:Appname
+                                    message:@"Please Enter FirstName."
+                                   delegate:self
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil, nil] show];
+        
         return NO;
     }
     else if (lastName.length == 0)
     {
         NSLog(@"Please Enter LastName.");
+        
+        [[[UIAlertView alloc] initWithTitle:Appname
+                                    message:@"Please Enter LastName."
+                                   delegate:self
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil, nil] show];
         
         return NO;
     }
@@ -421,17 +453,35 @@ UIScrollViewDelegate>
     {
         NSLog(@"Please Enter Birthdate.");
         
+        [[[UIAlertView alloc] initWithTitle:Appname
+                                    message:@"Please Enter Birthdate."
+                                   delegate:self
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil, nil] show];
+        
         return NO;
     }
     else if (imageData.length == 0)
     {
         NSLog(@"Please Select Image");
         
+        [[[UIAlertView alloc] initWithTitle:Appname
+                                    message:@"Please Select Image."
+                                   delegate:self
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil, nil] show];
+        
         return NO;
     }
     else if (gender.length == 0)
     {
         NSLog(@"Please Select Gender");
+        
+        [[[UIAlertView alloc] initWithTitle:Appname
+                                    message:@"Please Select Gender."
+                                   delegate:self
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil, nil] show];
         
         return NO;
     }
@@ -549,7 +599,9 @@ UIScrollViewDelegate>
         
         scrollView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0);
         
-        [self swipeDown:nil];
+        [textboxHandler btnDoneTap];
+        
+        [self swipeDown];
     }
 }
 

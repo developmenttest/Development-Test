@@ -139,6 +139,11 @@
         
         [newuser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
         {
+            dispatch_async(dispatch_get_main_queue(), ^
+            {
+                [SVProgressHUD dismiss];
+            });
+            
             if (!error)
             {
                 NSLog(@"Sign Up SuccessFully");
@@ -160,8 +165,6 @@
                                                           otherButtonTitles:nil];
                 [alertview show];
             }
-            
-            [SVProgressHUD dismiss];
         }];
     }
 }
