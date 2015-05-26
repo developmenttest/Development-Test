@@ -14,7 +14,6 @@ static NSString *ASTitleFromCancel = @"Cancel";
 
 #import "ProfileViewController.h"
 #import "DTDBManager.h"
-#import "DTUser.h"
 
 @interface ProfileViewController ()
 <UIActionSheetDelegate,
@@ -57,8 +56,10 @@ ZWTTextboxToolbarHandlerDelegate>
     [super viewDidLoad];
     
     [self prepareViews];
-    
+
     dbManager = [[DTDBManager alloc] initDatabasewithName:@"users"];
+    
+    [self loadProfileDetail];
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -165,6 +166,11 @@ ZWTTextboxToolbarHandlerDelegate>
 }
 
 #pragma mark - Helper Methods
+- (void)loadProfileDetail
+{
+    
+}
+
 - (void)saveInParse
 {
     PFFile *imageFile = [PFFile fileWithName:@"Image.png" data:imageData];
@@ -185,7 +191,7 @@ ZWTTextboxToolbarHandlerDelegate>
                 {
                     NSLog(@"Saved");
                     
-                    [[[UIAlertView alloc] initWithTitle:@"Dev Test"
+                    [[[UIAlertView alloc] initWithTitle:@"Development Test"
                                                 message:@"Profile Saved."
                                                delegate:self
                                       cancelButtonTitle:@"OK"

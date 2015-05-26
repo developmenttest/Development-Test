@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ProfileViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,9 +17,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     [Parse setApplicationId:@"2eFUOgaSrzToUPfQUcoaS32V7ES8RqegU9DqvcGY" clientKey:@"NL4aWDgJ9R4in9eiVadddfyY71k2Bv6fOvq5bW8L"];
+    
+    if([DTUser isAnyUserLogin])
+    {
+        ProfileViewController *pvc = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+        
+        self.window.rootViewController = pvc;
+    }
+    
     return YES;
 }
+
 
 @end

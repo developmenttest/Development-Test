@@ -143,7 +143,9 @@
             if (user)
             {
                 NSLog(@"Login SuccessFully");
-                 
+                
+                [DTUser saveUserName:userName];
+                
                 ProfileViewController *vcProfile = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
                 
                 [self.navigationController pushViewController:vcProfile animated:YES];
@@ -151,7 +153,7 @@
             else
             {
                 UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"Developer Test"
-                                                                    message:@"Wrong Username or Password"
+                                                                    message:@"Wrong Username or Password."
                                                                 delegate:nil
                                                           cancelButtonTitle:@"OK"
                                                           otherButtonTitles:nil];
@@ -167,13 +169,12 @@
 - (BOOL)validateInfo
 {
     userName = [txtUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
     passWord = [txtPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     if (userName.length == 0)
     {
-        [[[UIAlertView alloc] initWithTitle:@"Dev Test"
-                                    message:@"Please Enter Username"
+        [[[UIAlertView alloc] initWithTitle:@"Development Test"
+                                    message:@"Please Enter Username."
                                    delegate:self
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil, nil] show];
@@ -181,8 +182,8 @@
     }
     if (passWord.length == 0)
     {
-        [[[UIAlertView alloc] initWithTitle:@"Dev Test"
-                                    message:@"Please Enter Passsword"
+        [[[UIAlertView alloc] initWithTitle:@"Development Test"
+                                    message:@"Please Enter Passsword."
                                    delegate:self
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil, nil] show];

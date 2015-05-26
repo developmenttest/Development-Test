@@ -35,4 +35,23 @@ NSString *const userImage       = @"image";
     return self;
 }
 
++ (void)saveUserName:(NSString *)userName
+{
+    [[NSUserDefaults standardUserDefaults] setObject:userName forKey:@"userName"];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (BOOL)isAnyUserLogin
+{
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"userName"])
+    {
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
+}
+
 @end

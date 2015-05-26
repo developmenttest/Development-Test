@@ -22,4 +22,7 @@ extern NSString *const userImage;
 
 - (instancetype)initWithDictionary:(NSDictionary *)userInfo NS_DESIGNATED_INITIALIZER;
 
++ (void)saveUserName:(NSString *)userName;
++ (BOOL)isAnyUserLogin;
+
 @end

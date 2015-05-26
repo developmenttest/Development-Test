@@ -128,6 +128,8 @@
 {
     if ([self validateInfo])
     {
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
+        
         [textboxHandler btnDoneTap];
         
         PFUser *newuser = [PFUser user];
@@ -139,23 +141,27 @@
         {
             if (!error)
             {
-                 NSLog(@"Sign Up SuccessFully");
-                 
-                 ProfileViewController *vcProfile = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+                NSLog(@"Sign Up SuccessFully");
                 
-                 [self.navigationController pushViewController:vcProfile animated:YES];
-             }
-             else
-             {
-                 NSString *errorString = [error userInfo][@"error"];
+                [DTUser saveUserName:userName];
+                
+                ProfileViewController *vcProfile = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+                
+                [self.navigationController pushViewController:vcProfile animated:YES];
+            }
+            else
+            {
+                NSString *errorString = [error userInfo][@"error"];
                  
-                 UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"Dev Test"
-                                                                     message:errorString
-                                                                    delegate:nil
-                                                           cancelButtonTitle:@"OK"
-                                                           otherButtonTitles:nil];
-                 [alertview show];
-             }
+                UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"Development Test"
+                                                                    message:errorString
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil];
+                [alertview show];
+            }
+            
+            [SVProgressHUD dismiss];
         }];
     }
 }
