@@ -1,1 +1,2 @@
 pod 'SVProgressHUD', :head
+pod 'Reachability', '~> 3.2'
