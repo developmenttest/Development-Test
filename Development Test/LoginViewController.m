@@ -173,7 +173,7 @@
     
     if (userName.length == 0)
     {
-        [[[UIAlertView alloc] initWithTitle:@"Development Test"
+        [[[UIAlertView alloc] initWithTitle:Appname
                                     message:@"Please Enter Username."
                                    delegate:self
                           cancelButtonTitle:@"OK"
@@ -182,7 +182,7 @@
     }
     if (passWord.length == 0)
     {
-        [[[UIAlertView alloc] initWithTitle:@"Development Test"
+        [[[UIAlertView alloc] initWithTitle:Appname
                                     message:@"Please Enter Passsword."
                                    delegate:self
                           cancelButtonTitle:@"OK"

@@ -153,7 +153,7 @@
             {
                 NSString *errorString = [error userInfo][@"error"];
                  
-                UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"Development Test"
+                UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:Appname
                                                                     message:errorString
                                                                    delegate:nil
                                                           cancelButtonTitle:@"OK"
@@ -177,8 +177,8 @@
     
     if (userName.length == 0)
     {
-        UIAlertView *userNameAlert = [[UIAlertView alloc] initWithTitle:@"Developer Test"
-                                                                message:@"Please Enter Username"
+        UIAlertView *userNameAlert = [[UIAlertView alloc] initWithTitle:Appname
+                                                                message:@"Please Enter Username."
                                                                delegate:self
                                                       cancelButtonTitle:@"OK"
                                                       otherButtonTitles:nil, nil];
@@ -188,8 +188,8 @@
     }
     else if (password.length == 0)
     {
-        UIAlertView *userNameAlert = [[UIAlertView alloc] initWithTitle:@"Developer Test"
-                                                                message:@"Please Enter Password"
+        UIAlertView *userNameAlert = [[UIAlertView alloc] initWithTitle:Appname
+                                                                message:@"Please Enter Password."
                                                                delegate:self
                                                       cancelButtonTitle:@"OK"
                                                       otherButtonTitles:nil, nil];
@@ -199,8 +199,8 @@
     }
     else if (confirmPassword.length == 0)
     {
-        UIAlertView *userNameAlert = [[UIAlertView alloc] initWithTitle:@"Developer Test"
-                                                                message:@"Please Enter Confirm Password"
+        UIAlertView *userNameAlert = [[UIAlertView alloc] initWithTitle:Appname
+                                                                message:@"Please Enter Confirm Password."
                                                                delegate:self
                                                       cancelButtonTitle:@"OK"
                                                       otherButtonTitles:nil, nil];
@@ -210,8 +210,8 @@
     }
     else if (![password isEqualToString:confirmPassword])
     {
-        UIAlertView *userNameAlert = [[UIAlertView alloc] initWithTitle:@"Developer Test"
-                                                                message:@"Password and Confirm Password must match"
+        UIAlertView *userNameAlert = [[UIAlertView alloc] initWithTitle:Appname
+                                                                message:@"Password and Confirm Password must match."
                                                                delegate:self
                                                       cancelButtonTitle:@"OK"
                                                       otherButtonTitles:nil, nil];
