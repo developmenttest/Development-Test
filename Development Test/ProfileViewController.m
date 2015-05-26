@@ -285,7 +285,7 @@ UIScrollViewDelegate>
         
         btnGender.selected = NO;
     }
-    else
+    else if([user.gender isEqualToString:@"Female"])
     {
         [btnGender setImage:[UIImage imageNamed:@"switch_gender_female"] forState:UIControlStateNormal];
         

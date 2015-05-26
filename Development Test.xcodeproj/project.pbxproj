@@ -548,7 +548,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fb2feef4-e062-48f9-91e7-87b32d56d16b";
+				PROVISIONING_PROFILE = "6c54e782-9f58-4acb-a7ab-4bfde49219f7";
 			};
 			name = "Ad Hoc";
 		};
@@ -650,7 +650,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2b15b4ce-4e3e-4727-aee6-9e2a5a37cdee";
+				PROVISIONING_PROFILE = "43e3e588-244a-4b89-b468-1da28b87c75f";
 			};
 			name = Debug;
 		};
