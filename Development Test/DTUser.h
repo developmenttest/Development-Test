@@ -11,6 +11,7 @@ extern NSString *const userLastName;
 extern NSString *const userGender;
 extern NSString *const userBirthDate;
 extern NSString *const userImage;
+extern NSString *const userModifiedDate;
 
 @interface DTUser : NSObject
 
@@ -19,6 +20,7 @@ extern NSString *const userImage;
 @property (strong, nonatomic) NSString *gender;
 @property (strong, nonatomic) NSString *birthDate;
 @property (strong, nonatomic) UIImage  *image;
+@property (strong, nonatomic) NSDate   *modifiedDate;
 
 - (instancetype)initWithDictionary:(NSDictionary *)userInfo NS_DESIGNATED_INITIALIZER;
 

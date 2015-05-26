@@ -8,15 +8,16 @@
 
 #import "DTUser.h"
 
-NSString *const userFirstName   = @"firstName";
-NSString *const userLastName    = @"lastName";
-NSString *const userGender      = @"gender";
-NSString *const userBirthDate   = @"birthDate";
-NSString *const userImage       = @"image";
+NSString *const userFirstName    = @"firstName";
+NSString *const userLastName     = @"lastName";
+NSString *const userGender       = @"gender";
+NSString *const userBirthDate    = @"birthDate";
+NSString *const userImage        = @"image";
+NSString *const userModifiedDate = @"modifiedDate";
 
 @implementation DTUser
 
-@synthesize firstName,lastName,gender,image,birthDate;
+@synthesize firstName,lastName,gender,image,birthDate, modifiedDate;
 
 - (instancetype)initWithDictionary:(NSDictionary *)userInfo
 {
@@ -28,8 +29,24 @@ NSString *const userImage       = @"image";
         lastName  = userInfo[userLastName];
         birthDate = userInfo[userBirthDate];
         gender    = userInfo[userGender];
-        image     = userInfo[userImage];
-    
+        
+        if([userInfo[userImage] isKindOfClass:[UIImage class]])
+        {
+            image = userInfo[userImage];
+        }
+        else if ([userInfo[userImage] isKindOfClass:[NSData class]])
+        {
+            image = [UIImage imageWithData:userInfo[userImage]];
+        }
+
+        if([userInfo[userModifiedDate] isKindOfClass:[NSDate class]])
+        {
+            modifiedDate = userInfo[userModifiedDate];
+        }
+        else if ([userInfo[userModifiedDate] isKindOfClass:[NSString class]])
+        {
+            modifiedDate = [DTGlobal dateForString:userInfo[userModifiedDate]];
+        }
     }
     
     return self;

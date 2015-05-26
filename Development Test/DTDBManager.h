@@ -18,10 +18,10 @@
 
 - (void)createDB:(NSString *)nameOfDB;
 
-- (void)saveProfile:(NSString *)firstNames lastName:(NSString *)lastNames date:(NSString *)date data:(NSData *)imageData gender:(NSString *)genders;
+- (void)saveUser:(DTUser *)user;
 
-- (void)updateDataForfirstName:(NSString *)firstName lastName:(NSString *)lastName dateOfBirth:(NSString *)bDate gender:(NSString *)gendr image:(NSData *)imgData;
+- (void)updateUser:(DTUser *)user;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDictionary *fetchData;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) DTUser *fetchData;
 
 @end

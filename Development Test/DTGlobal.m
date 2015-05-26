@@ -9,6 +9,8 @@
 #import "DTGlobal.h"
 #import <Reachability/Reachability.h>
 
+NSString *Appname = @"Development Test";
+
 @implementation DTGlobal
 
 @synthesize screenSizeType;
@@ -81,6 +83,28 @@
     }
     
     return YES;
+}
+
++ (NSString *)stringForDate:(NSDate *)date
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    
+    return dateString;
+}
+
++ (NSDate *)dateForString:(NSString *)stringDate
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSDate *date = [dateFormatter dateFromString:stringDate];
+    
+    return date;
 }
 
 @end

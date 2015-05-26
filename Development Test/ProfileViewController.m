@@ -19,7 +19,8 @@ static NSString *ASTitleFromCancel = @"Cancel";
 <UIActionSheetDelegate,
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
-ZWTTextboxToolbarHandlerDelegate>
+ZWTTextboxToolbarHandlerDelegate,
+UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *txtFirstName;
 @property (weak, nonatomic) IBOutlet UITextField *txtLastName;
@@ -41,6 +42,12 @@ ZWTTextboxToolbarHandlerDelegate>
 
 @property (strong, nonatomic) DTDBManager *dbManager;
 
+@property (nonatomic) BOOL isChange;
+@property (nonatomic) BOOL isLoadTime;
+@property (nonatomic) BOOL showActivityIndicator;
+
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+
 @end
 
 @implementation ProfileViewController
@@ -49,6 +56,7 @@ ZWTTextboxToolbarHandlerDelegate>
 @synthesize txtFirstName, txtLastName, txtDateOfBirth;
 @synthesize scrvProfile, textboxHandler, dpBirthDate;
 @synthesize firstName, lastName, birthDate, gender, imageData;
+@synthesize isChange, activityIndicator, showActivityIndicator, isLoadTime;
 
 #pragma mark - UIViewController Methods
 - (void)viewDidLoad
@@ -58,8 +66,23 @@ ZWTTextboxToolbarHandlerDelegate>
     [self prepareViews];
 
     dbManager = [[DTDBManager alloc] initDatabasewithName:@"users"];
+
+    isLoadTime = YES;
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
-    [self loadProfileDetail];
+    if (isLoadTime)
+    {
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
+        
+        [self loadProfileDetail];
+        
+        isLoadTime = NO;
+    }
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -80,7 +103,7 @@ ZWTTextboxToolbarHandlerDelegate>
     
     btnProfileImage.clipsToBounds = YES;
     
-    scrvProfile.contentSize = CGSizeMake(CGRectGetWidth(scrvProfile.frame), CGRectGetMaxY(btnGender.frame));
+    scrvProfile.contentSize = CGSizeMake(CGRectGetWidth(scrvProfile.frame), CGRectGetHeight(scrvProfile.frame) + 10);
 }
 
 - (void)prepareTextFields
@@ -119,6 +142,8 @@ ZWTTextboxToolbarHandlerDelegate>
         
         btnGender.selected = YES;
     }
+    
+    isChange = YES;
 }
 
 - (IBAction)dpBirthDateChange:(UIDatePicker *)sender
@@ -138,7 +163,7 @@ ZWTTextboxToolbarHandlerDelegate>
 {
     UIActionSheet *videoActionSheet = [[UIActionSheet alloc] initWithTitle:@"Choose Picture"
                                                                   delegate:self
-                                                         cancelButtonTitle:ASTitleFromCamera
+                                                         cancelButtonTitle:ASTitleFromCancel
                                                     destructiveButtonTitle:nil
                                                          otherButtonTitles:ASTitleFromAlbum, ASTitleFromCamera, nil];
     videoActionSheet.tag = ASTagProfileImage;
@@ -148,106 +173,226 @@ ZWTTextboxToolbarHandlerDelegate>
 
 - (IBAction)swipeDown:(UISwipeGestureRecognizer *)sender
 {
-    if([self validateUserProfile])
+    if(isChange)
     {
-        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
-        
-        if([dbManager fetchData])
+        if([self validateUserProfile])
         {
-            [dbManager updateDataForfirstName:firstName lastName:lastName dateOfBirth:birthDate gender:gender image:imageData];
+            NSDictionary *userDict = @{
+                                       userFirstName : firstName,
+                                       userLastName  : lastName,
+                                       userBirthDate : birthDate,
+                                       userImage     : [btnProfileImage imageForState:UIControlStateNormal],
+                                       userGender    : gender,
+                                       userModifiedDate : [DTGlobal stringForDate:[NSDate date]]
+                                       };
+            
+            DTUser *userToSave = [[DTUser alloc] initWithDictionary:userDict];
+            
+            [self saveUserInDatabase:userToSave];
+            
+            if ([DTGlobal reachable])
+            {
+                [self saveInParse:userToSave];
+            }
+            else
+            {
+                scrvProfile.contentOffset = CGPointMake(0, 0);
+                scrvProfile.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+            }
+            isChange = NO;
         }
-        else
-        {
-            [dbManager saveProfile:firstName lastName:lastName date:birthDate data:imageData gender:gender];
-        }
-        
-        [self saveInParse];
+    }
+    else
+    {
+        [self loadProfileDetail];
     }
 }
 
 #pragma mark - Helper Methods
+- (void)saveUserInDatabase:(DTUser *)userToSave
+{
+    if([dbManager fetchData])
+    {
+        [dbManager updateUser:userToSave];
+    }
+    else
+    {
+        [dbManager saveUser:userToSave];
+    }
+}
+
 - (void)loadProfileDetail
 {
     if([DTGlobal reachable])
     {
-        
+        [self loadUserFromParse:^(DTUser *remoteUser)
+        {
+            DTUser *localUser = [dbManager fetchData];
+            
+            if([remoteUser.modifiedDate compare:localUser.modifiedDate] == NSOrderedAscending)//Local user is latest
+            {
+                [self displayUser:localUser];
+                [self saveInParse:localUser];
+            }
+            else if([remoteUser.modifiedDate compare:localUser.modifiedDate] == NSOrderedDescending)//Remote user is latest
+            {
+                [self displayUser:remoteUser];
+                [self saveUserInDatabase:remoteUser];
+            }
+            else
+            {
+                if(localUser == nil && remoteUser)
+                {
+                    [self displayUser:remoteUser];
+                    [self saveUserInDatabase:remoteUser];
+                }
+                else if (remoteUser == nil && localUser)
+                {
+                    [self displayUser:localUser];
+                    [self saveInParse:localUser];
+                }
+            }
+        }];
     }
     else
     {
-        NSDictionary *userDetail = [dbManager fetchData];
+        DTUser *user = [dbManager fetchData];
         
-        firstName   = userDetail[userFirstName];
-        lastName    = userDetail[userLastName];
-        birthDate   = userDetail[userBirthDate];
-        imageData   = userDetail[userImage];
-        gender      = userDetail[userGender];
-        
-        txtFirstName.text   = firstName;
-        txtLastName.text    = lastName;
-        txtDateOfBirth.text = birthDate;
-        
-        if([gender isEqualToString:@"Male"])
-        {
-            [btnGender setImage:[UIImage imageNamed:@"switch_gender_male"] forState:UIControlStateNormal];
-            
-            btnGender.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            
-            btnGender.selected = NO;
-        }
-        else
-        {
-            [btnGender setImage:[UIImage imageNamed:@"switch_gender_female"] forState:UIControlStateNormal];
-            
-            btnGender.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-            
-            btnGender.selected = YES;
-        }
-    
-        if(imageData)
-        {
-            UIImage *imgProfile = [UIImage imageWithData:imageData];
-            
-            if(imageData)
-            {
-                [btnProfileImage setImage:imgProfile forState:UIControlStateNormal];
-            }
-        }
+        [self displayUser:user];
     }
 }
 
-- (void)saveInParse
+- (void)displayUser:(DTUser *)user
 {
-    PFFile *imageFile = [PFFile fileWithName:@"Image.png" data:imageData];
+    isChange = NO;
+    
+    txtFirstName.text   = user.firstName;
+    txtLastName.text    = user.lastName;
+    txtDateOfBirth.text = user.birthDate;
+    
+    if([user.gender isEqualToString:@"Male"])
+    {
+        [btnGender setImage:[UIImage imageNamed:@"switch_gender_male"] forState:UIControlStateNormal];
+        
+        btnGender.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        
+        btnGender.selected = NO;
+    }
+    else
+    {
+        [btnGender setImage:[UIImage imageNamed:@"switch_gender_female"] forState:UIControlStateNormal];
+        
+        btnGender.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        
+        btnGender.selected = YES;
+    }
+    
+    [btnProfileImage setImage:user.image forState:UIControlStateNormal];
+    
+    scrvProfile.contentOffset = CGPointMake(0, 0);
+    scrvProfile.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    
+    [SVProgressHUD dismiss];
+}
+
+- (void)loadUserFromParse:(void(^)(DTUser *userDetail))parseUser
+{
+    [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error)
+    {
+        PFUser *fetcheduser = (PFUser *)object;
+         
+        PFFile *imageFile = [fetcheduser objectForKey:userImage];
+         
+        NSURL *imgURL = [NSURL URLWithString:[imageFile url]];
+        
+        NSData *dataImage = [[NSData alloc] initWithContentsOfURL:imgURL];
+        
+        UIImage *profileImage = [UIImage imageWithData:dataImage];
+        
+        NSString *modifiedDate = [fetcheduser objectForKey:userModifiedDate];
+        
+        NSMutableDictionary *userInfo = @{}.mutableCopy;
+        
+        if([fetcheduser objectForKey:userFirstName])
+        {
+            [userInfo setObject:[fetcheduser objectForKey:userFirstName] forKey:userFirstName];
+        }
+        
+        if([fetcheduser objectForKey:userLastName])
+        {
+            [userInfo setObject:[fetcheduser objectForKey:userLastName] forKey:userLastName];
+        }
+       
+        if([fetcheduser objectForKey:userBirthDate])
+        {
+            [userInfo setObject:[fetcheduser objectForKey:userBirthDate] forKey:userBirthDate];
+        }
+        
+        if([fetcheduser objectForKey:userGender])
+        {
+            [userInfo setObject:[fetcheduser objectForKey:userGender] forKey:userGender];
+        }
+        
+        if(profileImage)
+        {
+            [userInfo setObject:profileImage forKey:userImage];
+        }
+        else
+        {
+            [userInfo setObject:[UIImage imageNamed:@"placeholder_profilepicture"] forKey:userImage];
+        }
+        
+        if(modifiedDate)
+        {
+            [userInfo setObject:modifiedDate forKey:userModifiedDate];
+        }
+        else
+        {
+            [userInfo setObject:[NSDate dateWithTimeIntervalSince1970:0] forKey:userModifiedDate];
+        }
+        
+        DTUser *currentUser = [[DTUser alloc]initWithDictionary:userInfo];
+        
+        parseUser(currentUser);
+     }];
+}
+
+- (void)saveInParse:(DTUser *)userToSave
+{
+    PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:UIImageJPEGRepresentation(userToSave.image, 0.8)];
     
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
     {
         if (!error)
         {
-            [[PFUser currentUser] setObject:imageFile   forKey:userImage];
-            [[PFUser currentUser] setObject:firstName   forKey:userFirstName];
-            [[PFUser currentUser] setObject:lastName    forKey:userLastName];
-            [[PFUser currentUser] setObject:birthDate   forKey:userBirthDate];
-            [[PFUser currentUser] setObject:gender      forKey:userGender];
+            NSString *dateTime = [DTGlobal stringForDate:[NSDate date]];
+            
+            [[PFUser currentUser] setObject:imageFile              forKey:userImage];
+            [[PFUser currentUser] setObject:userToSave.firstName   forKey:userFirstName];
+            [[PFUser currentUser] setObject:userToSave.lastName    forKey:userLastName];
+            [[PFUser currentUser] setObject:userToSave.birthDate   forKey:userBirthDate];
+            [[PFUser currentUser] setObject:userToSave.gender      forKey:userGender];
+            [[PFUser currentUser] setObject:dateTime               forKey:userModifiedDate];
             
             [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
             {
                 if (!error)
                 {
                     NSLog(@"Saved");
-                    
-                    [[[UIAlertView alloc] initWithTitle:@"Development Test"
-                                                message:@"Profile Saved."
-                                               delegate:self
-                                      cancelButtonTitle:@"OK"
-                                      otherButtonTitles:nil, nil] show];
                 }
                 else
                 {
                     NSLog(@"Error: %@ %@", error, [error userInfo]);
                 }
                 
-                [SVProgressHUD dismiss];
+                scrvProfile.contentOffset = CGPointMake(0, 0);
+                scrvProfile.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
             }];
+        }
+        else
+        {
+            scrvProfile.contentOffset = CGPointMake(0, 0);
+            scrvProfile.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
         }
     }];
 }
@@ -294,6 +439,19 @@ ZWTTextboxToolbarHandlerDelegate>
     return YES;
 }
 
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize
+{
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
 #pragma mark - UIActionSheetDelegate Methods
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
@@ -324,9 +482,13 @@ ZWTTextboxToolbarHandlerDelegate>
 #pragma mark - UIImagePickerControllerDelegate Methods
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
 {
-    [btnProfileImage setImage:[info objectForKey:UIImagePickerControllerEditedImage] forState:UIControlStateNormal];
+    UIImage *imgProfile = [self imageWithImage:[info objectForKey:UIImagePickerControllerEditedImage] scaledToSize:CGSizeMake(110, 110)];
+    
+    [btnProfileImage setImage:imgProfile forState:UIControlStateNormal];
     
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    isChange = YES;
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -340,6 +502,54 @@ ZWTTextboxToolbarHandlerDelegate>
     if(textField == txtDateOfBirth)
     {
         [self dpBirthDateChange:dpBirthDate];
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if(textField == txtDateOfBirth)
+    {
+        return NO;
+    }
+    
+    isChange = YES;
+    
+    return YES;
+}
+
+#pragma mark - UIScrollViewDelegate Methods
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSLog(@"%@", @(scrollView.contentOffset.y));
+    
+    if(scrollView.contentOffset.y < -40)
+    {
+        if(!activityIndicator)
+        {
+            activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        
+            activityIndicator.frame = CGRectMake(CGRectGetWidth(scrollView.frame)/2.0 - 25, -40, 50, 50);
+        }
+    
+        [scrollView addSubview:activityIndicator];
+        
+        [activityIndicator startAnimating];
+        
+        showActivityIndicator = YES;
+        
+        scrollView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0);
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if(showActivityIndicator)
+    {
+        scrollView.contentOffset = CGPointMake(0, -50);
+        
+        scrollView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0);
+        
+        [self swipeDown:nil];
     }
 }
 

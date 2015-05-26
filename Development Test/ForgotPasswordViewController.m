@@ -115,4 +115,70 @@
     }
 }
 
+#pragma mark - Helper Method
+- (BOOL)validateEmail:(NSString *)emailString
+{
+    BOOL validEmail = NO;
+    
+    if(nil != emailString && [emailString length])
+    {
+        NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}";
+        
+        NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+        
+        validEmail = [emailTest evaluateWithObject:emailString];
+    }
+    
+    return validEmail;
+}
+
+#pragma mark - Event Method
+- (IBAction)btnResetPasswordTap:(id)sender
+{
+    NSString *email = [txtEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if ([self validateEmail:email])
+    {
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
+        
+        [PFUser requestPasswordResetForEmailInBackground:email block:^(BOOL succeeded, NSError *error)
+        {
+            if (error.code == 205)
+            {
+                NSDictionary *errorDict = error.userInfo;
+                 
+                [[[UIAlertView alloc] initWithTitle:Appname
+                                            message:errorDict[@"error"]
+                                           delegate:self
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil, nil] show];
+             }
+             else if (succeeded)
+             {
+                 [[[UIAlertView alloc] initWithTitle:Appname
+                                             message:@"Password reset link successfully sent to your email address."
+                                            delegate:self
+                                   cancelButtonTitle:@"OK"
+                                   otherButtonTitles:nil, nil] show];
+             }
+             
+             [SVProgressHUD dismiss];
+         }];
+    }
+    else
+    {
+        [[[UIAlertView alloc] initWithTitle:Appname
+                                    message:@"Please Enter Valid Email address."
+                                   delegate:self
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil, nil] show];
+    }
+    
+}
+
+- (IBAction)btnCancelTap:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end

@@ -163,6 +163,9 @@
                                                 <state key="normal" title="SEND PASSOWRD RESET LINK" backgroundImage="button_generic.png">
                                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="btnResetPasswordTap:" destination="iPc-eM-04N" eventType="touchUpInside" id="yF4-fU-DsO"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mGJ-2G-to2">
                                                 <rect key="frame" x="77" y="216" width="146" height="48"/>
@@ -171,6 +174,9 @@
                                                 <state key="normal" title="CANCEL" backgroundImage="button_generic.png">
                                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="btnCancelTap:" destination="iPc-eM-04N" eventType="touchUpInside" id="iCv-rx-IJU"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -403,7 +409,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="k6k-6x-NL7">
+                                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="k6k-6x-NL7">
                                                 <rect key="frame" x="105" y="294" width="109" height="109"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" image="placeholder_profilepicture.png">
@@ -438,6 +444,7 @@
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <connections>
+                                    <outlet property="delegate" destination="VBk-AK-0VY" id="XWu-ap-Yhy"/>
                                     <outletCollection property="gestureRecognizers" destination="hIV-ew-av8" appends="YES" id="GIT-jl-A2F"/>
                                 </connections>
                             </scrollView>
@@ -464,11 +471,14 @@
                     <date key="date" timeIntervalSinceReferenceDate="454245936.106094">
                         <!--2015-05-25 11:25:36 +0000-->
                     </date>
+                    <date key="maximumDate" timeIntervalSinceReferenceDate="410266800">
+                        <!--2014-01-01 11:00:00 +0000-->
+                    </date>
                     <connections>
                         <action selector="dpBirthDateChange:" destination="VBk-AK-0VY" eventType="valueChanged" id="W7E-9t-ZhN"/>
                     </connections>
                 </datePicker>
-                <swipeGestureRecognizer direction="down" id="hIV-ew-av8">
+                <swipeGestureRecognizer enabled="NO" direction="down" id="hIV-ew-av8">
                     <connections>
                         <action selector="swipeDown:" destination="VBk-AK-0VY" id="o17-78-SKE"/>
                     </connections>

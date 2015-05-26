@@ -8,6 +8,8 @@
 
 #define DTGlobalObject [DTGlobal global]
 
+extern NSString *Appname;
+
 typedef NS_ENUM(NSInteger, DTScreenSizeType)
 {
     DTScreenSizeTypeUnknown  = 0,
@@ -24,5 +26,8 @@ typedef NS_ENUM(NSInteger, DTScreenSizeType)
 + (DTGlobal *)global;
 
 + (BOOL)reachable;
+
++ (NSString *)stringForDate:(NSDate *)date;
++ (NSDate *)dateForString:(NSString *)stringDate;
 
 @end
