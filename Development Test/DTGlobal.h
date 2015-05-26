@@ -23,4 +23,6 @@ typedef NS_ENUM(NSInteger, DTScreenSizeType)
 
 + (DTGlobal *)global;
 
++ (BOOL)reachable;
+
 @end

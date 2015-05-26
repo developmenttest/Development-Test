@@ -204,7 +204,6 @@ const char *dbPath;
                 
                 NSData *imageData = [NSData dataWithBytes:sqlite3_column_blob(statement, 4) length:length];
                 
-                
                 dic = @{userFirstName: firstName,userLastName: lastName,userBirthDate: bDate,userImage: imageData,userGender: gender};
             }
             

@@ -168,7 +168,51 @@ ZWTTextboxToolbarHandlerDelegate>
 #pragma mark - Helper Methods
 - (void)loadProfileDetail
 {
+    if([DTGlobal reachable])
+    {
+        
+    }
+    else
+    {
+        NSDictionary *userDetail = [dbManager fetchData];
+        
+        firstName   = userDetail[userFirstName];
+        lastName    = userDetail[userLastName];
+        birthDate   = userDetail[userBirthDate];
+        imageData   = userDetail[userImage];
+        gender      = userDetail[userGender];
+        
+        txtFirstName.text   = firstName;
+        txtLastName.text    = lastName;
+        txtDateOfBirth.text = birthDate;
+        
+        if([gender isEqualToString:@"Male"])
+        {
+            [btnGender setImage:[UIImage imageNamed:@"switch_gender_male"] forState:UIControlStateNormal];
+            
+            btnGender.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            
+            btnGender.selected = NO;
+        }
+        else
+        {
+            [btnGender setImage:[UIImage imageNamed:@"switch_gender_female"] forState:UIControlStateNormal];
+            
+            btnGender.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+            
+            btnGender.selected = YES;
+        }
     
+        if(imageData)
+        {
+            UIImage *imgProfile = [UIImage imageWithData:imageData];
+            
+            if(imageData)
+            {
+                [btnProfileImage setImage:imgProfile forState:UIControlStateNormal];
+            }
+        }
+    }
 }
 
 - (void)saveInParse

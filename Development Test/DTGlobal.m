@@ -7,6 +7,7 @@
 //
 
 #import "DTGlobal.h"
+#import <Reachability/Reachability.h>
 
 @implementation DTGlobal
 
@@ -67,6 +68,19 @@
     }
     
     return screenSizeType;
+}
+
++ (BOOL)reachable
+{
+    Reachability *reachability   = [Reachability reachabilityForInternetConnection];
+    NetworkStatus internetStatus = [reachability currentReachabilityStatus];
+    
+    if(internetStatus == NotReachable)
+    {
+        return NO;
+    }
+    
+    return YES;
 }
 
 @end
