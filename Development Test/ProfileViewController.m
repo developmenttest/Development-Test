@@ -25,6 +25,7 @@ UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *txtFirstName;
 @property (weak, nonatomic) IBOutlet UITextField *txtLastName;
 @property (weak, nonatomic) IBOutlet UITextField *txtDateOfBirth;
+@property (weak, nonatomic) IBOutlet UITextField *txtEmailAddress;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnProfileImage;
 @property (weak, nonatomic) IBOutlet UIButton *btnGender;
@@ -32,12 +33,16 @@ UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrvProfile;
 @property (weak, nonatomic) IBOutlet UIDatePicker *dpBirthDate;
 
+@property (weak, nonatomic) IBOutlet UIView *viewAllContent;
+
 @property (strong, nonatomic) ZWTTextboxToolbarHandler *textboxHandler;
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
 @property (strong, nonatomic) NSString *firstName;
 @property (strong, nonatomic) NSString *lastName;
 @property (strong, nonatomic) NSString *birthDate;
 @property (strong, nonatomic) NSString *gender;
+@property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSData *imageData;
 
 @property (strong, nonatomic) DTDBManager *dbManager;
@@ -46,17 +51,15 @@ UIScrollViewDelegate>
 @property (nonatomic) BOOL isLoadTime;
 @property (nonatomic) BOOL showActivityIndicator;
 
-@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
-
 @end
 
 @implementation ProfileViewController
 
 @synthesize btnGender, btnProfileImage, dbManager;
-@synthesize txtFirstName, txtLastName, txtDateOfBirth;
+@synthesize txtFirstName, txtLastName, txtDateOfBirth, txtEmailAddress;
 @synthesize scrvProfile, textboxHandler, dpBirthDate;
-@synthesize firstName, lastName, birthDate, gender, imageData;
-@synthesize isChange, activityIndicator, showActivityIndicator, isLoadTime;
+@synthesize firstName, lastName, birthDate, gender, imageData, email;
+@synthesize isChange, activityIndicator, showActivityIndicator, isLoadTime, viewAllContent;
 
 #pragma mark - UIViewController Methods
 - (void)viewDidLoad
@@ -64,10 +67,9 @@ UIScrollViewDelegate>
     [super viewDidLoad];
     
     isLoadTime = YES;
+    dbManager = [[DTDBManager alloc] initDatabasewithName:@"users"];
     
     [self prepareViews];
-
-    dbManager = [[DTDBManager alloc] initDatabasewithName:@"users"];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -102,12 +104,12 @@ UIScrollViewDelegate>
     
     btnProfileImage.clipsToBounds = YES;
     
-    scrvProfile.contentSize = CGSizeMake(CGRectGetWidth(scrvProfile.frame), CGRectGetHeight(scrvProfile.frame) + 10);
+    scrvProfile.contentSize = CGSizeMake(CGRectGetWidth(scrvProfile.frame), CGRectGetHeight(viewAllContent.frame) + 60);
 }
 
 - (void)prepareTextFields
 {
-    NSArray *allTextFields = @[txtFirstName, txtLastName, txtDateOfBirth];
+    NSArray *allTextFields = @[txtFirstName, txtLastName, txtEmailAddress, txtDateOfBirth];
     
     for(UITextField *textField in allTextFields)
     {
@@ -181,6 +183,7 @@ UIScrollViewDelegate>
             NSDictionary *userDict = @{
                                        userFirstName : firstName,
                                        userLastName  : lastName,
+                                       userEmail     : email,
                                        userBirthDate : birthDate,
                                        userImage     : [btnProfileImage imageForState:UIControlStateNormal],
                                        userGender    : gender,
@@ -197,9 +200,9 @@ UIScrollViewDelegate>
             }
             else
             {
-                scrvProfile.contentOffset = CGPointMake(0, 0);
-                scrvProfile.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+                [self hideActivityIndicator];
             }
+            
             isChange = NO;
         }
     }
@@ -254,6 +257,7 @@ UIScrollViewDelegate>
                 }
                 else
                 {
+                    [self displayUser:remoteUser];
                     [SVProgressHUD dismiss];
                 }
             }
@@ -273,9 +277,10 @@ UIScrollViewDelegate>
     
     isChange = NO;
     
-    txtFirstName.text   = user.firstName;
-    txtLastName.text    = user.lastName;
-    txtDateOfBirth.text = user.birthDate;
+    txtFirstName.text       = user.firstName;
+    txtLastName.text        = user.lastName;
+    txtDateOfBirth.text     = user.birthDate;
+    txtEmailAddress.text    = user.email;
     
     if([user.gender isEqualToString:@"Male"])
     {
@@ -296,8 +301,7 @@ UIScrollViewDelegate>
     
     [btnProfileImage setImage:user.image forState:UIControlStateNormal];
     
-    scrvProfile.contentOffset = CGPointMake(0, 0);
-    scrvProfile.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    [self hideActivityIndicator];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
@@ -338,6 +342,11 @@ UIScrollViewDelegate>
                 [userInfo setObject:[fetcheduser objectForKey:userLastName] forKey:userLastName];
             }
            
+            if ([fetcheduser objectForKey:userEmail])
+            {
+                [userInfo setObject:[fetcheduser objectForKey:userEmail] forKey:userEmail];
+            }
+            
             if([fetcheduser objectForKey:userBirthDate])
             {
                 [userInfo setObject:[fetcheduser objectForKey:userBirthDate] forKey:userBirthDate];
@@ -393,6 +402,7 @@ UIScrollViewDelegate>
             [[PFUser currentUser] setObject:userToSave.birthDate   forKey:userBirthDate];
             [[PFUser currentUser] setObject:userToSave.gender      forKey:userGender];
             [[PFUser currentUser] setObject:dateTime               forKey:userModifiedDate];
+            [PFUser currentUser].email = userToSave.email;
             
             [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
             {
@@ -405,16 +415,30 @@ UIScrollViewDelegate>
                     NSLog(@"Error: %@ %@", error, [error userInfo]);
                 }
                 
-                scrvProfile.contentOffset = CGPointMake(0, 0);
-                scrvProfile.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+                [self hideActivityIndicator];
             }];
         }
         else
         {
-            scrvProfile.contentOffset = CGPointMake(0, 0);
-            scrvProfile.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+            [self hideActivityIndicator];
         }
     }];
+}
+
+- (BOOL)validateEmail:(NSString *)emailString
+{
+    BOOL validEmail = NO;
+    
+    if(nil != emailString && [emailString length])
+    {
+        NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}";
+        
+        NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+        
+        validEmail = [emailTest evaluateWithObject:emailString];
+    }
+    
+    return validEmail;
 }
 
 - (BOOL)validateUserProfile
@@ -424,6 +448,7 @@ UIScrollViewDelegate>
     birthDate = txtDateOfBirth.text;
     imageData = [NSData dataWithData:UIImagePNGRepresentation([btnProfileImage imageForState:UIControlStateNormal])];
     gender    = (btnGender.isSelected) ? @"Female" : @"Male";
+    email     = [txtEmailAddress.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     if (firstName.length == 0)
     {
@@ -443,6 +468,18 @@ UIScrollViewDelegate>
         
         [[[UIAlertView alloc] initWithTitle:Appname
                                     message:@"Please Enter LastName."
+                                   delegate:self
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil, nil] show];
+        
+        return NO;
+    }
+    else if (![self validateEmail:email])
+    {
+        NSLog(@"Please Enter Valid Email.");
+        
+        [[[UIAlertView alloc] initWithTitle:Appname
+                                    message:@"Please Enter Valid Email."
                                    delegate:self
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil, nil] show];
@@ -500,6 +537,20 @@ UIScrollViewDelegate>
     UIGraphicsEndImageContext();
     
     return newImage;
+}
+
+- (void)hideActivityIndicator
+{
+    scrvProfile.contentOffset = CGPointMake(0, 0);
+    scrvProfile.contentInset  = UIEdgeInsetsMake(0, 0, 0, 0);
+    
+    [activityIndicator stopAnimating];
+    
+    [activityIndicator removeFromSuperview];
+    
+    activityIndicator = nil;
+    
+    showActivityIndicator = NO;
 }
 
 #pragma mark - UIActionSheetDelegate Methods
@@ -589,12 +640,18 @@ UIScrollViewDelegate>
         
         scrollView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0);
     }
+    else
+    {
+       showActivityIndicator = NO;
+    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     if(showActivityIndicator)
     {
+        showActivityIndicator = NO;
+        
         scrollView.contentOffset = CGPointMake(0, -50);
         
         scrollView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0);

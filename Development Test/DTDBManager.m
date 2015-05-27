@@ -11,6 +11,7 @@
 
 static NSString *colFirstName    = @"firstName";
 static NSString *colLastName     = @"lastName";
+static NSString *colEmail        = @"email";
 static NSString *colBirthDate    = @"bDate";
 static NSString *colGender       = @"gender";
 static NSString *colImage        = @"image";
@@ -57,10 +58,11 @@ const char *dbPath;
         if (sqlite3_open(dbPath, &connectToDB) == SQLITE_OK)
         {
             
-            NSString *createDBSTring = [NSString stringWithFormat:@"create table if not exists %@(id text,%@ text,%@ text,%@ text,%@ BLOB, %@ text, %@ text)",
+            NSString *createDBSTring = [NSString stringWithFormat:@"create table if not exists %@(id text,%@ text,%@ text,%@ text,%@ text,%@ BLOB, %@ text, %@ text)",
                                         tableName,
                                         colFirstName,
                                         colLastName,
+                                        colEmail,
                                         colBirthDate,
                                         colImage,
                                         colGender,
@@ -96,11 +98,12 @@ const char *dbPath;
     
     if (sqlite3_open(dbPath, &connectToDB)==SQLITE_OK)
     {
-        NSString *insertString = [NSString stringWithFormat:@"insert into %@ (%@,%@,%@,%@,%@,%@,%@) values (?,?,?,?,?,?,?)",
+        NSString *insertString = [NSString stringWithFormat:@"insert into %@ (%@,%@,%@,%@,%@,%@,%@,%@) values (?,?,?,?,?,?,?,?)",
                                   tableName,
                                   @"id",
                                   colFirstName,
                                   colLastName,
+                                  colEmail,
                                   colBirthDate,
                                   colImage,
                                   colGender,
@@ -119,10 +122,11 @@ const char *dbPath;
         sqlite3_bind_text(statement, 1, [ID UTF8String], -1, NULL);
         sqlite3_bind_text(statement, 2, [user.firstName UTF8String], -1, NULL);
         sqlite3_bind_text(statement, 3, [user.lastName UTF8String], -1, NULL);
-        sqlite3_bind_text(statement, 4, [user.birthDate UTF8String], -1, NULL);
-        sqlite3_bind_blob(statement, 5, [imageData bytes], imageLength, SQLITE_TRANSIENT);
-        sqlite3_bind_text(statement, 6, [user.gender UTF8String], -1, NULL);
-        sqlite3_bind_text(statement, 7, [modifieddate UTF8String], -1, NULL);
+        sqlite3_bind_text(statement, 4, [user.email UTF8String], -1, NULL);
+        sqlite3_bind_text(statement, 5, [user.birthDate UTF8String], -1, NULL);
+        sqlite3_bind_blob(statement, 6, [imageData bytes], imageLength, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, 7, [user.gender UTF8String], -1, NULL);
+        sqlite3_bind_text(statement, 8, [modifieddate UTF8String], -1, NULL);
         
         if (sqlite3_step(statement)==SQLITE_DONE)
         {
@@ -150,10 +154,11 @@ const char *dbPath;
     {
         NSLog(@"Exitsing data, Update Please");
         
-        NSString *updateSQL = [NSString stringWithFormat:@"update %@ set %@ = ?,%@ = ?,%@ = ?,%@ = ?,%@ = ?,%@ = ? where id = ?",
+        NSString *updateSQL = [NSString stringWithFormat:@"update %@ set %@ = ?,%@ = ?,%@ = ?,%@ = ?,%@ = ?,%@ = ?,%@ = ? where id = ?",
                                tableName,
                                colFirstName,
                                colLastName,
+                               colEmail,
                                colBirthDate,
                                colImage,
                                colGender,
@@ -171,11 +176,12 @@ const char *dbPath;
 
         sqlite3_bind_text(statement, 1, [user.firstName UTF8String], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, 2, [user.lastName UTF8String], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(statement, 3, [user.birthDate UTF8String], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_blob(statement, 4, [imgData bytes], imgLength, SQLITE_TRANSIENT);
-        sqlite3_bind_text(statement, 5, [user.gender UTF8String], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(statement, 6, [modifieddate UTF8String], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(statement, 7, [ID UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, 3, [user.email UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, 4, [user.birthDate UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_blob(statement, 5, [imgData bytes], imgLength, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, 6, [user.gender UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, 7, [modifieddate UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, 8, [ID UTF8String], -1, SQLITE_TRANSIENT);
         
         if (sqlite3_step(statement) == SQLITE_DONE)
         {
@@ -235,51 +241,64 @@ const char *dbPath;
                     lastName = @((const char *) secondColumn);
                 }
                 
-                NSString *bDate;
-                
+                NSString *emailAddress;
                 const char* thirdColumn = (const char*)sqlite3_column_text(statement, 3);
                 
                 if (thirdColumn == NULL)
+                {
+                    emailAddress = @"";
+                }
+                else
+                {
+                    emailAddress = @((const char *) thirdColumn);
+                }
+                
+                NSString *bDate;
+                
+                const char* fourthColumn = (const char*)sqlite3_column_text(statement, 4);
+                
+                if (fourthColumn == NULL)
                 {
                     bDate = @"";
                 }
                 else
                 {
-                    bDate = @((const char *) thirdColumn);
+                    bDate = @((const char *) fourthColumn);
                 }
                 
-                int length = sqlite3_column_bytes(statement, 4);
+                int length = sqlite3_column_bytes(statement, 5);
                 
-                NSData *imageData = [NSData dataWithBytes:sqlite3_column_blob(statement, 4) length:length];
+                NSData *imageData = [NSData dataWithBytes:sqlite3_column_blob(statement, 5) length:length];
                 
                 NSString *gender;
                 
-                const char* fourthColumn = (const char*)sqlite3_column_text(statement, 5);
+                const char* sixthColumn = (const char*)sqlite3_column_text(statement, 6);
                 
-                if (fourthColumn == NULL)
+                if (sixthColumn == NULL)
                 {
                     gender = @"";
                 }
                 else
                 {
-                    gender = @((const char *) fourthColumn);
+                    gender = @((const char *) sixthColumn);
                 }
                 
                 NSString *modifiedDate;
                 
-                const char* modifieddateColumn = (const char*)sqlite3_column_text(statement, 6);
+                const char* seventhCoulmn = (const char*)sqlite3_column_text(statement, 7);
                 
-                if (modifieddateColumn == NULL)
+                if (seventhCoulmn == NULL)
                 {
                     modifiedDate = [DTGlobal stringForDate:[NSDate dateWithTimeIntervalSince1970:0]];
                 }
                 else
                 {
-                    modifiedDate = @((const char *) modifieddateColumn);
+                    modifiedDate = @((const char *) seventhCoulmn);
                 }
                 
                 dic = @{userFirstName   : firstName,
                         userLastName    : lastName,
+                        userEmail       : emailAddress,
                         userBirthDate   : bDate,
                         userImage       : imageData,
                         userGender      : gender,

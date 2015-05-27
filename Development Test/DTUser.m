@@ -10,6 +10,7 @@
 
 NSString *const userFirstName    = @"firstName";
 NSString *const userLastName     = @"lastName";
+NSString *const userEmail        = @"email";
 NSString *const userGender       = @"gender";
 NSString *const userBirthDate    = @"birthDate";
 NSString *const userImage        = @"image";
@@ -17,7 +18,7 @@ NSString *const userModifiedDate = @"modifiedDate";
 
 @implementation DTUser
 
-@synthesize firstName,lastName,gender,image,birthDate, modifiedDate;
+@synthesize firstName,lastName,gender,image,birthDate, modifiedDate, email;
 
 - (instancetype)initWithDictionary:(NSDictionary *)userInfo
 {
@@ -29,6 +30,7 @@ NSString *const userModifiedDate = @"modifiedDate";
         lastName  = userInfo[userLastName];
         birthDate = userInfo[userBirthDate];
         gender    = userInfo[userGender];
+        email     = userInfo[userEmail];
         
         if([userInfo[userImage] isKindOfClass:[UIImage class]])
         {
