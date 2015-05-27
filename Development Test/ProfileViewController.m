@@ -86,6 +86,13 @@ UIScrollViewDelegate>
     }
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [textboxHandler btnDoneTap];
+}
+
 - (BOOL)prefersStatusBarHidden
 {
     return YES;

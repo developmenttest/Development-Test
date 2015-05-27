@@ -66,6 +66,11 @@
     txtPassword.leftViewMode = UITextFieldViewModeAlways;
     
     textboxHandler = [[ZWTTextboxToolbarHandler alloc] initWithTextboxs:@[txtUsername, txtPassword] andScroll:scrvLogin];
+    
+    if(DTGlobalObject.screenSizeType == DTScreenSizeTypeIPhone6p)
+    {
+        textboxHandler.offset = 200;
+    }
 }
 
 - (void)prepareLoginView

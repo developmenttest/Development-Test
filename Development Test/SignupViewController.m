@@ -70,6 +70,11 @@
     }
     
     textboxHandler = [[ZWTTextboxToolbarHandler alloc] initWithTextboxs:allTextFields andScroll:scrvSignup];
+    
+    if(DTGlobalObject.screenSizeType == DTScreenSizeTypeIPhone6p)
+    {
+        textboxHandler.offset = 250;
+    }
 }
 
 - (void)prepareSignupView
